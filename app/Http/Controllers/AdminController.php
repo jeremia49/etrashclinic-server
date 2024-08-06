@@ -32,6 +32,14 @@ class AdminController extends Controller
         return view("home");
     }
 
+    public function informasi(){
+        return view('informasi');
+    }
+
+    public function artikel(){
+        return view('artikel');
+    }
+
     public function logout(Request $request){
         $user = $request->user();
         $user->tokens()->delete();

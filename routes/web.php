@@ -26,7 +26,9 @@ Route::post("/login",[AdminController::class,"login"])->name('login');
 Route::middleware("auth")->group(function () {
     Route::get("/home",[AdminController::class,"home"])->name('home');
     Route::get("/logout",[AdminController::class,"logout"])->name('logout');
-
+    Route::get("/informasi",[AdminController::class,"informasi"])->name('informasi');
+    Route::get("/artikel",[AdminController::class,"artikel"])->name('artikel');
+    
 
     // Route::get("/home",[AdminController::class,"home"]);
 });
