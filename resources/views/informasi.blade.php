@@ -1,7 +1,7 @@
-<?php
+@php
     $NAV="INFORMASI";
     $TITLE="Informasi";
-?>
+@endphp
 @include('partials.header')
 
 <body id="page-top">

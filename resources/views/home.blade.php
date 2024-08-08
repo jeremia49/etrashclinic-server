@@ -1,7 +1,7 @@
-<?php
+@php
     $NAV="HOME";
     $TITLE="Home";
-?>
+@endphp
 @include('partials.header')
 
 <body id="page-top">
