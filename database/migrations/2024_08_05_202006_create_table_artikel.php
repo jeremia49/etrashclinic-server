@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('table_artikel', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('author');
-            $table->text("title");
-            $table->text("content"); //ketika video -> menjadi link url video
+            $table->longText("title");
+            $table->longText("content"); //ketika video -> menjadi link url video
             $table->string("imgUrl");
             $table->boolean("isVideo")->default(true);
             $table->timestamps();

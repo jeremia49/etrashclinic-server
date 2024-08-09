@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('table_informasi', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('author');
-            $table->text("title");
-            $table->text("content");
+            $table->longText("title");
+            $table->longText("content");
             $table->string("imgUrl");
             $table->timestamps();
         });

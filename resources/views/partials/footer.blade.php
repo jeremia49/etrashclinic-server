@@ -41,21 +41,26 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/4.2.27/es2015/jodit.min.css" integrity="sha512-d09gd1Dt+iKBkOmA2+aro/mkvFxenaep5bt31mUYgxER23hxJUlZoUQJ97QyzKPtJOlVTnUJ61ZfchIybo6Iaw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jodit/4.2.27/es2015/jodit.min.js" integrity="sha512-z/aGoZCHe0xG696TS+mSGbsXJBX0NMRjJEYvLdF4i95+NxdAZ9oibQ47hNp/4WAFWZIfw5WMlO1illDVKahdrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @hasSection("js")
+        @yield("js")
+    @endif
 
 </body>
 
