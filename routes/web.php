@@ -78,9 +78,4 @@ Route::middleware("auth")->group(function () {
 
 
     Route::get("/pengguna",[UserListController::class,"pengguna"])->name('pengguna');
-
-    // Route::get("/produkhasil/delete/{id}",[ProdukHasilController::class,"deleteprodukhasil"])->name('deleteprodukhasil');
-
-
-    // Route::get("/home",[AdminController::class,"home"]);
 });
