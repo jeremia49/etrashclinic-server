@@ -12,4 +12,18 @@ class Artikel extends Model
     protected $table = "table_artikel";
 
     protected $guarded  = ['id'];
+
+    protected $hidden = [
+        'content',
+    ];
+    protected function getImgPublicUrlAttribute(){
+        return url("/storage/".$this->attributes['imgUrl']);
+    }
+
+    protected function getPublicUrlAttribute(){
+        return url(route("viewartikelpublic",["id"=>$this->attributes['id']]));
+    }
+    
+    protected $appends = ['imgPublicUrl', 'publicUrl'];
+
 }

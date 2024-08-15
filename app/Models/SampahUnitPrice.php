@@ -12,4 +12,13 @@ class SampahUnitPrice extends Model
     protected $table = "table_unitprice";
 
     protected $guarded  = ['id'];
+
+    protected function getImgPublicUrlAttribute(){
+        return url("/storage/".$this->attributes['imgUrl']);
+    }
+
+    protected $appends = [
+        'imgPublicUrl',
+    ];
+
 }

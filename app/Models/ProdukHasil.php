@@ -12,4 +12,13 @@ class ProdukHasil extends Model
     protected $table = "table_produkhasil";
 
     protected $guarded  = ['id'];
+
+    protected function getImgPublicUrlAttribute(){
+        return url("/storage/".$this->attributes['imgUrl']);
+    }
+
+    protected $appends = [
+        'imgPublicUrl',
+    ];
+
 }
