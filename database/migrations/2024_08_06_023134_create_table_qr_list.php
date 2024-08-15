@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('table_qr_list', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('author');
-            $table->string("table");
-            $table->string("text");
+            $table->string("title");
+            $table->text("message");
+            $table->string("uniqid");
             $table->timestamps();
         });
     }

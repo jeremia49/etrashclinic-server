@@ -25,6 +25,26 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
+                Pengaturan Sampah & Produk
+            </div>
+
+            <li class="nav-item {{$NAV == "SAMPAH" ? "active" : ""}}">
+                <a class="nav-link" href="{{route('sampah')}}">
+                    <i class="fas fa-fw  fa-trash"></i>
+                    <span>Sampah</span></a>
+            </li>
+
+            <li class="nav-item {{$NAV == "PRODUKHASIL" ? "active" : ""}}">
+                <a class="nav-link" href="{{route('produkhasil')}}">
+                    <i class="fas fa-fw  fa-trash"></i>
+                    <span>Produk Hasil</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
                 Konten & Media
             </div>
 
@@ -40,57 +60,50 @@
                     <span>Artikel</span></a>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                QRCode
+            </div>
+
+            <li class="nav-item {{$NAV == "QRCODE" ? "active" : ""}}">
+                <a class="nav-link" href="{{route('qrcode')}}">
+                    <i class="fas fa-fw  fa-qrcode"></i>
+                    <span>QRCode</span></a>
+            </li>
+            <li class="nav-item {{$NAV == "LOGQRCODE" ? "active" : ""}}">
+                <a class="nav-link" href="{{route('qrlog')}}">
+                    <i class="fas fa-fw  fa-qrcode"></i>
+                    <span>Log QRCode</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Users
+            </div>
+
+            <li class="nav-item {{$NAV == "PENGGUNA" ? "active" : ""}}">
+                <a class="nav-link" href="{{route('pengguna')}}">
+                    <i class="fas fa-fw  fa-qrcode"></i>
+                    <span>Pengguna</span></a>
+            </li> 
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
+                <a class="nav-link" href="{{route('logout')}}">
+                    <i class="fas fa-fw  fa-qrcode"></i>
+                    <span>Logout</span></a>
+            </li> 
         </ul>
         <!-- End of Sidebar -->

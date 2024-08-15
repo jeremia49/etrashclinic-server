@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_sampahhistory', function (Blueprint $table) {
+        Schema::create('table_unitprice', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("author");
-            $table->text("content");
-            $table->bigInteger("weighttotal");
+            $table->bigInteger('author');
+            $table->string("title");
+            $table->string("satuan");
+            $table->bigInteger("minprice"); //coin
+            $table->bigInteger("maxprice");//coin
+            $table->string("imgUrl");
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_sampahhistory');
+        Schema::dropIfExists('table_unitprice');
     }
 };

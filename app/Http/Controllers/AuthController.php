@@ -46,6 +46,7 @@ class AuthController extends Controller
                         "name"=>$request->user()->name,
                         "email"=>$request->user()->email,
                         "nohp"=>$request->user()->nohp,
+                        "photoUrl"=>$request->user()->photoUrl,
                         "access_token"=>$token
                     ),
                 ]);
