@@ -21,7 +21,7 @@ class APIGeneralController extends Controller
     }
 
     public function artikel(){
-        $artikels = Artikel::all();
+        $artikels = Artikel::orderBy('created_at', 'desc')->get();
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
