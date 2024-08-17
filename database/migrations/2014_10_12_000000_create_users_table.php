@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('nohp');
             $table->string('photoUrl');
-            $table->bigInteger('balance')->default(0); //Koin
+            $table->unsignedBigInteger('coinBalance')->default(0); //Koin
+            $table->unsignedBigInteger('saldoBalance')->default(0); //Koin
             $table->rememberToken();
             $table->boolean('isAdmin')->default(false);
             $table->timestamps();

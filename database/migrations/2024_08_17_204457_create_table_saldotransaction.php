@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_unitprice', function (Blueprint $table) {
+        Schema::create('table_saldotransaction', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('author');
-            $table->string("title");
-            $table->string("satuan");
-            $table->unsignedBigInteger("harga"); //rupiah
-            $table->string("imgUrl");
+            $table->bigInteger("author");
+            $table->string("vendor");
+            $table->unsignedBigInteger("before");
+            $table->unsignedBigInteger("after");
+            $table->bigInteger("price");
+            $table->string("status");
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_unitprice');
+        Schema::dropIfExists('table_saldotransaction');
     }
 };

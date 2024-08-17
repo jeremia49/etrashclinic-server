@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->bigInteger("author");
             $table->string("vendor");
+            $table->unsignedBigInteger("before");
+            $table->unsignedBigInteger("after");
             $table->bigInteger("price");
             $table->string("status");
             $table->timestamps();

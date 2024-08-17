@@ -43,10 +43,4 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     
-    protected function getBalanceidrAttribute(){
-        return env("COINTORPEQUIVALENT") * $this->balance;
-    }
-    
-    protected $appends = ['balanceidr',];
-
 }
