@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('nohp');
             $table->string('photoUrl');
-            $table->string('fcmToken');
+            $table->string('fcmToken')->nullable();
             $table->timestamp('fcmLastUpdate')->nullable();
             $table->unsignedBigInteger('coinBalance')->default(0); //Koin
             $table->unsignedBigInteger('saldoBalance')->default(0); //Koin
