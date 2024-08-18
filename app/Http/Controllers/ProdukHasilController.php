@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\produkhasil;
-use App\Models\produkhasilUnitPrice;
+use App\Models\ProdukHasil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 

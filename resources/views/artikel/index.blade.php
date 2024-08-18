@@ -79,7 +79,7 @@ $TITLE="Daftar artikel";
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="4" align="center">Belum ada data !</td>
+                                            <td colspan="5" align="center">Belum ada data !</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
