@@ -15,7 +15,8 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email'=>'required|email',
-            'password'=>'required'
+            'password'=>'required',
+            'fcmToken'=>'nullable',
         ]);
  
         if ($validator->fails()) {
@@ -33,10 +34,16 @@ class AuthController extends Controller
             'email'=>$validated['email'],
             'password'=>$validated['password']
             ])) {
+
+                if(array_key_exists("fcmToken", $validated)){
+                    $request->user()->fcmToken = $validated['fcmToken'];
+                    $request->user()->save();
+                }
+                
                 $request->user()->tokens()->delete();
 
                 $token = $request->user()->createToken("MOBILE_APP_KEY")->plainTextToken;
-
+                
                 return response()->json([
                     'status' => 'ok',
                     'message' => 'Anda telah berhasil masuk',
@@ -126,8 +133,5 @@ class AuthController extends Controller
             "data"=>$user,
         ]);
     }
-
-
-
 
 }

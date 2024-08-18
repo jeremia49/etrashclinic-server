@@ -26,9 +26,9 @@ class ArtikelController extends Controller
         
         $validator = Validator::make($request->all(), [
             'judul'=>'required',
-            'konten'=>'sometimes|required',
+            'konten'=>'nullable',
             'image'=>'required|file',
-            'video'=>'sometimes|required|file',
+            'video'=>'nullable|file',
         ]);
  
         if ($validator->fails()) {

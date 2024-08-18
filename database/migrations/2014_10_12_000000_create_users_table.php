@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('fcmToken')->nullable();
             $table->timestamp('fcmLastUpdate')->nullable();
             $table->unsignedBigInteger('coinBalance')->default(0); //Koin
-            $table->unsignedBigInteger('saldoBalance')->default(0); //Koin
+            $table->unsignedBigInteger('saldoBalance')->default(0); //Saldo
             $table->rememberToken();
             $table->boolean('isAdmin')->default(false);
             $table->timestamps();
