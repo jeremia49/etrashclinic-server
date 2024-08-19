@@ -16,7 +16,8 @@ return new class extends Migration
             $table->bigInteger('author');
             $table->string("title");
             $table->string("satuan");
-            $table->unsignedBigInteger("harga"); //rupiah
+            $table->unsignedBigInteger("rupiah"); //coin
+            // $table->unsignedBigInteger("coin"); //coin
             $table->string("imgUrl");
             $table->timestamps();
         });

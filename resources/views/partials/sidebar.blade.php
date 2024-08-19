@@ -40,6 +40,13 @@
                     <span>Produk Hasil</span></a>
             </li>
 
+            <li class="nav-item {{$NAV == "SAMPAHPENGGUNA" ? "active" : ""}}">
+                <a class="nav-link" href="{{route('sampahpengguna')}}">
+                    <i class="fas fa-fw  fa-trash"></i>
+                    <span>Sampah Pengguna</span></a>
+            </li>
+
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\APIGeneralController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SampahController;
+use App\Http\Controllers\SampahPenggunaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,5 @@ Route::get("/produkhasil",[APIGeneralController::class,"produkhasil"]);
 
 Route::post("/uploadImage",[SampahController::class,"storeImage"])->middleware('auth:sanctum');
 
-Route::post("/addSampah",[SampahController::class,"addSampahPengguna"])->middleware('auth:sanctum');
+Route::post("/addSampah",[SampahPenggunaController::class,"addSampahPengguna"])->middleware('auth:sanctum');
 

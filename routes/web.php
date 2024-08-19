@@ -6,6 +6,7 @@ use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProdukHasilController;
 use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\SampahController;
+use App\Http\Controllers\SampahPenggunaController;
 use App\Http\Controllers\UserListController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,11 @@ Route::middleware("auth")->group(function () {
     Route::post("/produkhasil/edit/{id}",[ProdukHasilController::class,"editprodukhasilp"])->name('editprodukhasil.p');
     Route::get("/produkhasil/delete/{id}",[ProdukHasilController::class,"deleteprodukhasil"])->name('deleteprodukhasil');
 
+    Route::get("/sampahpengguna",[SampahPenggunaController::class,"sampahpengguna"])->name('sampahpengguna');
+    Route::get("/sampahpengguna/edit/{id}",[SampahPenggunaController::class,"editsampahpengguna"])->name('editsampahpengguna');
+    Route::post("/sampahpengguna/edit/{id}",[SampahPenggunaController::class,"editsampahpenggunap"])->name('editsampahpengguna.p');
+    Route::get("/sampahpengguna/delete/{id}",[SampahPenggunaController::class,"deletesampahpengguna"])->name('deletesampahpengguna');
+    Route::get("/sampahpengguna/approve/{id}",[SampahPenggunaController::class,"approvesampahpengguna"])->name('approvesampahpengguna');
 
     Route::get("/pengguna",[UserListController::class,"pengguna"])->name('pengguna');
 });

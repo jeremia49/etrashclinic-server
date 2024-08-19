@@ -24,8 +24,8 @@ $TITLE="Sampah";
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Sampah</h1>
-                    <p class="mb-4">Atur sampah apa yang dapat ditukar pengguna</p>
+                    <h1 class="h3 mb-2 text-gray-800">Sampah Pengguna</h1>
+                    <p class="mb-4">Validasi Sampah Pengguna</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -49,25 +49,27 @@ $TITLE="Sampah";
                                             <th>Nama</th>
                                             <th>Gambar</th>
                                             <th>Satuan</th>
+                                            <th>Total</th>
                                             <th>Harga (Rupiah)</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($sampahs as $sampah)
+                                        @forelse ($sampahpenggunas as $sampah)
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>{{$sampah->title}}</td>
-                                            <td><img src="/storage/{{$sampah->imgUrl}} " width="100px" alt="Gambar sampah"></td>
+                                            <td><img src="{{$sampah->imgUrl}} " width="100px" alt="Gambar sampah"></td>
                                             <td>{{$sampah->satuan}}</td>
+                                            <td>{{$sampah->total}}</td>
                                             <td>{{$sampah->rupiah}}</td>
                                             <td>
-                                                <!-- <a href="{{route('editsampah', ['id'=>$sampah->id])}}" class="btn btn-primary">
+                                                <a href="{{route('approvesampahpengguna', ['id'=>$sampah->id])}}" class="btn btn-success">
                                                         <span class="icon text-white-100">
-                                                            <i class="fas fa-pen-square	"></i>
+                                                            <i class="fas fa-check	"></i>
                                                         </span>
-                                                </a> -->
-                                                <a href="{{route('deletesampah',  ['id'=>$sampah->id])}}" class="btn btn-danger">
+                                                </a>
+                                                <a href="{{route('deletesampahpengguna',  ['id'=>$sampah->id])}}" class="btn btn-danger">
                                                     <span class="icon text-white-100">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
@@ -76,7 +78,7 @@ $TITLE="Sampah";
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="6" align="center">Belum ada data !</td>
+                                            <td colspan="7" align="center">Belum ada data !</td>
                                         </tr>
                                         @endforelse
                                     </tbody>

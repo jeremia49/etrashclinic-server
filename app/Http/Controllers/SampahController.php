@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sampah;
+use App\Models\SampahPengguna;
 use App\Models\SampahUnitPrice;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,8 +29,8 @@ class SampahController extends Controller
         $validator = Validator::make($request->all(), [
             'nama'=>'required',
             'satuan'=>'required',
-            'minprice'=>'required',
-            'maxprice'=>'required',
+            'rupiah'=>'required',
+            // 'coin'=>'required',
             'image'=>'required|file',
         ]);
  
@@ -45,8 +46,8 @@ class SampahController extends Controller
         $sampah->author = auth()->user()->id;
         $sampah->title = $validated['nama'];
         $sampah->satuan = $validated['satuan'];
-        $sampah->minprice = $validated['minprice'];
-        $sampah->maxprice = $validated['maxprice'];
+        $sampah->rupiah = $validated['rupiah'];
+        // $sampah->coin = $validated['coin'];
 
         $sampah->imgUrl = $imgpath;
 
@@ -110,23 +111,5 @@ class SampahController extends Controller
         }
 
     }
-
-    public function addSampahPengguna(Request $request){
-          
-        $validator = Validator::make($request->all(), [
-            '*.id'=>'required',
-            '*.berat'=>'required',
-            '*.image'=>'required',
-        ]);
- 
-        if ($validator->fails()) {
-            return redirect()->back();
-        }
-
-        $validated = $validator->validated();
-        
-
-    }
-
 
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger("unitid");
             $table->string("satuan");
             $table->bigInteger("price")->nullable(true); //coin
-            $table->bigInteger("total");
+            $table->bigInteger("total"); //berat
             $table->string("imgUrl");
             $table->boolean("isProcessed")->default(false); //telah diproses admin
             $table->timestamps();
