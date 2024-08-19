@@ -36,7 +36,7 @@
 
         <hr class="col-1 my-4">
 
-        <a href="/etrashclinic.apk" download class="btn btn-primary">Download aplikasi E-Trash Clinic</a>
+        <a href="/etrashclinicv2.apk" download class="btn btn-primary">Download aplikasi E-Trash Clinic</a>
         <a href="{{route('login')}}" class="btn btn-secondary">Login Admin</a>
       </div>
     </div>
