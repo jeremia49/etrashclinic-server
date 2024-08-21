@@ -95,7 +95,7 @@ class QRCodeController extends Controller
     }
 
     public function scanqrcode(string $id, Request $request){
-        $qrcode = QRList::where('uniqid',$id)->first();
+        $qrcode = QRList::where('uniqid',$id)->firstOrFail();
 
         $validator = Validator::make($request->all(), [
             'userID'=>'required|integer',
@@ -111,7 +111,11 @@ class QRCodeController extends Controller
         $qrlog->qrid = $qrcode->id;
         $qrlog->save();
 
-        return "Berhasil scan QR";
+        return response()->json([
+            'status' => 'ok',
+            'message'=> $qrcode->message,
+            'reason' => null,
+        ]);
     }
 
     public function qrlog(){

@@ -1,6 +1,6 @@
 @php
-$NAV="SAMPAH";
-$TITLE="Sampah";
+$NAV="SAMPAHPENGGUNA";
+$TITLE="Sampah Pengguna";
 @endphp
 @include('partials.header')
 
@@ -33,12 +33,6 @@ $TITLE="Sampah";
                             <h6 class="m-0 font-weight-bold text-primary">Sampah</h6>
                         </div>
                         <div class="card-body">
-                            <a href="{{route('addsampah')}}" class="btn btn-primary btn-icon-split float-right">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-plus"></i>
-                                </span>
-                                <span class="text">Tambah Sampah Baru</span>
-                            </a>
                             <br>
                             <br>
                             <div class="table-responsive">
@@ -69,7 +63,7 @@ $TITLE="Sampah";
                                                             <i class="fas fa-check	"></i>
                                                         </span>
                                                 </a>
-                                                <a href="{{route('deletesampahpengguna',  ['id'=>$sampah->id])}}" class="btn btn-danger">
+                                                <a href="{{route('declinesampahpengguna',  ['id'=>$sampah->id])}}" class="btn btn-danger">
                                                     <span class="icon text-white-100">
                                                         <i class="fas fa-trash"></i>
                                                     </span>

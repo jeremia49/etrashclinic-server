@@ -38,4 +38,6 @@ Route::get("/produkhasil",[APIGeneralController::class,"produkhasil"]);
 Route::post("/uploadImage",[SampahController::class,"storeImage"])->middleware('auth:sanctum');
 
 Route::post("/addSampah",[SampahPenggunaController::class,"addSampahPengguna"])->middleware('auth:sanctum');
+Route::get("/historySampah",[SampahPenggunaController::class,"historySampah"])->middleware('auth:sanctum');
+
 

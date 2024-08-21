@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class APIGeneralController extends Controller
 {
     public function informasi(){
-        $informasis = Informasi::all();
+        $informasis = Informasi::orderBy('created_at', 'desc')->get();
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',

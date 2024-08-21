@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('author');
             $table->bigInteger("unitid");
-            $table->string("satuan");
-            $table->bigInteger("price")->nullable(true); //coin
+            $table->string("satuan")->nullable(true); //
+            $table->bigInteger("price")->nullable(true); //
             $table->bigInteger("total"); //berat
             $table->string("imgUrl");
-            $table->boolean("isProcessed")->default(false); //telah diproses admin
+            $table->boolean("isApproved")->default(false); //diterima
+            $table->boolean("isDeclined")->default(false); //diterima
             $table->timestamps();
         });
     }

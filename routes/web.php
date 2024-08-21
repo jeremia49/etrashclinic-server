@@ -82,6 +82,7 @@ Route::middleware("auth")->group(function () {
     Route::post("/sampahpengguna/edit/{id}",[SampahPenggunaController::class,"editsampahpenggunap"])->name('editsampahpengguna.p');
     Route::get("/sampahpengguna/delete/{id}",[SampahPenggunaController::class,"deletesampahpengguna"])->name('deletesampahpengguna');
     Route::get("/sampahpengguna/approve/{id}",[SampahPenggunaController::class,"approvesampahpengguna"])->name('approvesampahpengguna');
+    Route::get("/sampahpengguna/decline/{id}",[SampahPenggunaController::class,"declinesampahpengguna"])->name('declinesampahpengguna');
 
     Route::get("/pengguna",[UserListController::class,"pengguna"])->name('pengguna');
 });

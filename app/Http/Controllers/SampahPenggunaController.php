@@ -16,7 +16,8 @@ class SampahPenggunaController extends Controller
         // $sampahpenggunas = SampahPengguna::all();
 
         $sampahpenggunas = SampahPengguna::select("table_sampah.*", "table_unitprice.title", "table_unitprice.rupiah")
-        ->where("table_sampah.isProcessed","0")
+        ->where("table_sampah.isApproved","0")
+        ->where("table_sampah.isDeclined","0")
         ->join("table_unitprice","table_unitprice.id", "=", "table_sampah.unitid")
         ->get();
         
@@ -38,14 +39,18 @@ class SampahPenggunaController extends Controller
 
     public function approvesampahpengguna(int $id){
         $sampahpengguna = SampahPengguna::findOrFail($id);
-        $sampahpengguna->isProcessed=true;
-        $sampahpengguna->save();
+        $sampahpengguna->isApproved=true;
 
         $unitprice = SampahUnitPrice::findOrFail($sampahpengguna->unitid);
 
+        // Update Sampah pengguna
+        $sampahpengguna->price = $unitprice->rupiah;
+        $sampahpengguna->satuan = $unitprice->satuan;
+        $sampahpengguna->save();
+
         $totalprice = $sampahpengguna->total * $unitprice->rupiah;
         $addCoin = $totalprice / 1000;
-        $addSaldo = $totalprice / 100;
+        $addSaldo = $totalprice / 10;
 
         $user = User::findOrFail($sampahpengguna->author);
         $user->coinBalance += $addCoin;
@@ -55,6 +60,13 @@ class SampahPenggunaController extends Controller
         return redirect()->back();
     }
     
+    public function declinesampahpengguna(int $id){
+        $sampahpengguna = SampahPengguna::findOrFail($id);
+        $sampahpengguna->isDeclined=true;
+        $sampahpengguna->save();
+
+        return redirect()->back();
+    }
     
     public function addSampahPengguna(Request $request){ //api
           
@@ -62,7 +74,6 @@ class SampahPenggunaController extends Controller
             '*.id'=>'required',
             '*.berat'=>'required',
             '*.image'=>'required',
-            '*.satuan'=>'required',
         ]);
  
         if ($validator->fails()) {
@@ -76,7 +87,6 @@ class SampahPenggunaController extends Controller
             SampahPengguna::create([
                 'author'=> auth()->user()->id,
                 'unitid' => $item['id'],
-                'satuan' => $item['satuan'],
                 'total' => $item['berat'],
                 'imgUrl' => $item['image'],
             ]);
@@ -89,5 +99,21 @@ class SampahPenggunaController extends Controller
         ]);
 
 
+    }
+
+    public function historySampah(Request $request){
+            $user = $request->user();
+
+            $sampahpengguna = SampahPengguna::select('table_sampah.*', 'table_unitprice.title', 'table_unitprice.rupiah AS origprice', 'table_unitprice.satuan AS origstatus')
+                ->where('table_sampah.author', $user->id)
+                ->join("table_unitprice","table_unitprice.id", "=", "table_sampah.unitid")
+                ->orderBy('table_sampah.created_at', 'desc')->get();
+
+            return response()->json([
+                'status' => 'ok',
+                'message' => 'Sukses',
+                "reason"=>null,
+                "data"=>$sampahpengguna,
+            ]);
     }
 }
