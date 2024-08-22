@@ -42,6 +42,7 @@ $TITLE="Daftar Pengguna";
                                             <th>Email</th>
                                             <th>No HP</th>
                                             <th>Balance (Coin)</th>
+                                            <th>Balance (Saldo)</th>
                                             <th>Gambar</th>
                                             <!-- <th>Action</th> -->
                                         </tr>
@@ -53,12 +54,13 @@ $TITLE="Daftar Pengguna";
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->nohp}}</td>
-                                            <td>{{$user->balance}}</td>
+                                            <td>{{$user->coinBalance}}</td>
+                                            <td>{{$user->saldoBalance}}</td>
                                             <td><img src="{{$user->photoUrl}}" alt="" width="100px" height="100px"></td>
                                         </tr>
                                         @empty
                                         <tr>
-                                            <td colspan="6" align="center">Belum ada data !</td>
+                                            <td colspan="7" align="center">Belum ada data !</td>
                                         </tr>
                                         @endforelse
                                     </tbody>
