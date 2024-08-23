@@ -140,6 +140,9 @@ class AuthController extends Controller
     public function notifications(Request $request){
         $user = $request->user();
         $data = Notification::where('author', $user->id)->orderBy('created_at', 'desc')->get();
+
+        Notification::where('author', $user->id)->update(['isRead' => '1']);
+        
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
