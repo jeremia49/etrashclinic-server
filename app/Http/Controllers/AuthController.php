@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -126,12 +127,26 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         $user = $request->user();
+        $checknotification = Notification::where('author', $user->id)->where('isRead', '0')->exists();
+        $user['isNotificationExist'] = $checknotification;
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
             "reason"=>null,
             "data"=>$user,
         ]);
+    }
+
+    public function notifications(Request $request){
+        $user = $request->user();
+        $data = Notification::where('author', $user->id)->orderBy('created_at', 'desc')->get();
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Sukses',
+            "reason"=>null,
+            "data"=>$data,
+        ]);
+
     }
 
 }
