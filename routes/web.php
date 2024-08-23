@@ -85,4 +85,10 @@ Route::middleware("auth")->group(function () {
     Route::get("/sampahpengguna/decline/{id}",[SampahPenggunaController::class,"declinesampahpengguna"])->name('declinesampahpengguna');
 
     Route::get("/pengguna",[UserListController::class,"pengguna"])->name('pengguna');
+    Route::get("/refundcoin/{id}",[UserListController::class,"refundCoin"])->name('refundcoin');
+    Route::post("/refundcoin/{id}",[UserListController::class,"refundCoinp"])->name('refundcoin.p');
+    Route::get("/refundsaldo/{id}",[UserListController::class,"refundSaldo"])->name('refundsaldo');
+    Route::post("/refundsaldo/{id}",[UserListController::class,"refundSaldop"])->name('refundsaldo.p');
+
+    
 });

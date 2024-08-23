@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SampahApproved;
+use App\Events\SampahDeclined;
+use App\Events\SampahPublished;
 use App\Models\SampahPengguna;
 use App\Models\sampahpenggunaPengguna;
 use App\Models\SampahUnitPrice;
@@ -57,6 +60,8 @@ class SampahPenggunaController extends Controller
         $user->saldoBalance += $addSaldo;
         $user->save();
 
+        SampahApproved::dispatch($sampahpengguna);
+
         return redirect()->back();
     }
     
@@ -64,6 +69,8 @@ class SampahPenggunaController extends Controller
         $sampahpengguna = SampahPengguna::findOrFail($id);
         $sampahpengguna->isDeclined=true;
         $sampahpengguna->save();
+
+        SampahDeclined::dispatch($sampahpengguna);
 
         return redirect()->back();
     }
@@ -84,12 +91,13 @@ class SampahPenggunaController extends Controller
 
         foreach ($validated as $item) {
             // Step 4: Insert each record into the database
-            SampahPengguna::create([
+            $sampahpengguna = SampahPengguna::create([
                 'author'=> auth()->user()->id,
                 'unitid' => $item['id'],
                 'total' => $item['berat'],
                 'imgUrl' => $item['image'],
             ]);
+            SampahPublished::dispatch($sampahpengguna);
         }
 
         return response()->json([

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Listeners\RefundSubscriber;
+use App\Listeners\SampahEventSubscriber;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::subscribe(SampahEventSubscriber::class);
+        Event::subscribe(RefundSubscriber::class);
     }
 }

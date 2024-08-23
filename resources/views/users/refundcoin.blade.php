@@ -1,6 +1,6 @@
 @php
-$NAV="SAMPAH";
-$TITLE="Tambah Sampah";
+$NAV="PENGGUNA";
+$TITLE="Tukar Koin Pengguna";
 @endphp
 @include('partials.header')
 
@@ -24,44 +24,41 @@ $TITLE="Tambah Sampah";
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Sampah Baru</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Tukar Koin</h1>
+                    <p class="mb-4">Tukar koin pengguna</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tambah Sampah Baru</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Tukar Koin Pengguna</h6>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{route("addsampah.p")}}" enctype="multipart/form-data" >
+                            <form method="POST" action="{{route("refundcoin.p",['id'=>$user->id])}}" >
                                 @csrf
 
                                 <div class="form-group">
                                     Nama : 
-                                    <input type="text" class="form-control" id="nama" name="nama"
-                                        aria-describedby="nama" >
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{$user->name}}"
+                                        aria-describedby="nama" readonly >
                                 </div>
 
                                 <div class="form-group">
-                                    Upload Thumbnail Gambar : 
-                                    <input type="file" class="form-control" name="image">
+                                    Koin Saat Ini : 
+                                    <input type="text" class="form-control" id="coin" name="coin"
+                                        aria-describedby="coin" value="{{$user->coinBalance}}" readonly >
                                 </div>
 
                                 <div class="form-group">
-                                    Satuan : 
-                                    <input type="text" class="form-control" id="satuan" name="satuan"
-                                        aria-describedby="satuan" value="kg" readonly >
+                                    Koin yang ingin ditukar : 
+                                    <input type="number" class="form-control" id="change" name="change"
+                                        aria-describedby="change" max="{{$user->coinBalance}}" min="1"  required>
                                 </div>
 
+                                
                                 <div class="form-group">
-                                    Harga Minimal (Coin) : 
-                                    <input type="number" class="form-control" id="minprice" name="minprice"
-                                        aria-describedby="minprice" >
-                                </div>
-
-                                <div class="form-group">
-                                    Harga Maksimal (Coin) : 
-                                    <input type="number" class="form-control" id="maxprice" name="maxprice"
-                                        aria-describedby="maxprice" >
+                                    Alasan : 
+                                    <input type="text" class="form-control" id="reason" name="reason"
+                                        aria-describedby="reason"  required>
                                 </div>
 
                                 <div class="form-group">
@@ -80,16 +77,7 @@ $TITLE="Tambah Sampah";
             </div>
             <!-- End of Main Content -->
             
-            
-@section("js")
-    <script> 
-        const editor = Jodit.make('#editor',{
-            "uploader": {
-                "insertImageAsBase64URI": true
-            }
-        });
-    </script>
-@endsection
+        
 
             @include('partials.footer')
 

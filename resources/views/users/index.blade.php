@@ -54,8 +54,22 @@ $TITLE="Daftar Pengguna";
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->nohp}}</td>
-                                            <td>{{$user->coinBalance}}</td>
-                                            <td>{{$user->saldoBalance}}</td>
+                                            <td>
+                                                {{$user->coinBalance}} 
+                                                <a href="{{route('refundcoin',  ['id'=>$user->id])}}" class="btn btn-info">
+                                                    <span class="icon text-white-100">
+                                                        <i class="fas fa-edit"></i>
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{$user->saldoBalance}}
+                                                <a href="{{route('refundsaldo',  ['id'=>$user->id])}}" class="btn btn-info">
+                                                    <span class="icon text-white-100">
+                                                        <i class="fas fa-edit"></i>
+                                                    </span>
+                                                </a>
+                                            </td>
                                             <td><img src="{{$user->photoUrl}}" alt="" width="100px" height="100px"></td>
                                         </tr>
                                         @empty
