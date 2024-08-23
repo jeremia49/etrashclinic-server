@@ -115,7 +115,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $user = $request->user();
-        $user->tokens()->delete();
+        // $user->tokens()->delete();
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
@@ -142,7 +142,7 @@ class AuthController extends Controller
         $data = Notification::where('author', $user->id)->orderBy('created_at', 'desc')->get();
 
         Notification::where('author', $user->id)->update(['isRead' => '1']);
-        
+
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
