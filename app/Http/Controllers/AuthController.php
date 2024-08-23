@@ -41,7 +41,7 @@ class AuthController extends Controller
                     $request->user()->save();
                 }
                 
-                $request->user()->tokens()->delete();
+                // $request->user()->tokens()->delete();
 
                 $token = $request->user()->createToken("MOBILE_APP_KEY")->plainTextToken;
                 
