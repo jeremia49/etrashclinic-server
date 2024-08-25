@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post("/register",[AuthController::class,"register"]);
 Route::post("/login",[AuthController::class,"login"]);
 Route::post("/logout",[AuthController::class,"logout"])->middleware('auth:sanctum');
+Route::post("/setFCMToken",[AuthController::class,"fcmToken"])->middleware('auth:sanctum');
 
 Route::get("/me",[AuthController::class,"me"])->middleware('auth:sanctum');
 Route::get("/notifications",[AuthController::class,"notifications"])->middleware('auth:sanctum');;
@@ -40,5 +41,3 @@ Route::post("/uploadImage",[SampahController::class,"storeImage"])->middleware('
 
 Route::post("/addSampah",[SampahPenggunaController::class,"addSampahPengguna"])->middleware('auth:sanctum');
 Route::get("/historySampah",[SampahPenggunaController::class,"historySampah"])->middleware('auth:sanctum');
-
-

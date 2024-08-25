@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FCM;
 use App\Models\Notification;
 use App\Models\User;
 use Exception;
@@ -34,13 +35,7 @@ class AuthController extends Controller
             Auth::attempt([
             'email'=>$validated['email'],
             'password'=>$validated['password']
-            ])) {
-
-                if(array_key_exists("fcmToken", $validated)){
-                    $request->user()->fcmToken = $validated['fcmToken'];
-                    $request->user()->save();
-                }
-                
+            ])) {               
                 // $request->user()->tokens()->delete();
 
                 $token = $request->user()->createToken("MOBILE_APP_KEY")->plainTextToken;
@@ -152,4 +147,24 @@ class AuthController extends Controller
 
     }
 
+    public function fcmToken(Request $request){
+        $user = $request->user();
+
+        $validator = Validator::make($request->all(), [
+            'fcmToken'=>'required|string',
+        ]);
+        $validated = $validator->validated();
+         
+        $fcm = new FCM();
+        $fcm->author = $user->id;
+        $fcm->fcmToken = $validated['fcmToken'];
+        $fcm->save();
+
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Sukses',
+            "reason"=>null,
+        ]);
+    }
+    
 }
