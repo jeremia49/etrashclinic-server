@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Artikel;
 use App\Models\Informasi;
+use App\Models\Leaderboard;
 use App\Models\ProdukHasil;
 use App\Models\SampahUnitPrice;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class APIGeneralController extends Controller
@@ -58,6 +60,40 @@ class APIGeneralController extends Controller
             'message' => 'Sukses',
             "reason"=>null,
             "data"=>$user,
+        ]);
+    }
+
+    public function leaderboard()
+    {
+        $leaderboard = Leaderboard::select("table_leaderboards.*","users.name", "users.photoUrl")->join('users', 'users.id', '=', 'table_leaderboards.authorID' )->get();
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Sukses',
+            "reason"=>null,
+            "data"=>$leaderboard,
+        ]);
+    }
+
+    public function currentLeaderboard(Request $request)
+    {
+        $user = $request->user();
+        $league = "silver";
+        if($user->leagueBulanIni != ""){
+            $league = $user->leagueBulanIni;
+        }
+        $ranknumber = 1;
+        $users = User::where('leagueBulanIni', $league)->orderBy('totalSampahBulanIni','desc')->get();
+        $data = [];
+        foreach ($users as $user) {
+           $user->rank = $ranknumber;
+           $data[] = $user;
+           $ranknumber++;
+        }
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Sukses',
+            "reason"=>null,
+            "data"=>$data,
         ]);
     }
 

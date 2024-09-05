@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\CalculateUserTotalAndAssignLeague;
+use App\Jobs\SaveMonthlyLeague;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,10 +15,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
         $schedule->command('queue:work --stop-when-empty')
             ->everyMinute()
             ->withoutOverlapping();
 
+        $schedule->job(new CalculateUserTotalAndAssignLeague)
+            ->everyFiveMinutes()
+            ->withoutOverlapping();
+
+        $schedule->job(new SaveMonthlyLeague())
+            ->lastDayOfMonth('23:59');
     }
 
     /**

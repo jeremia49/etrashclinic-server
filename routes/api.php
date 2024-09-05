@@ -31,11 +31,13 @@ Route::post("/setFCMToken",[AuthController::class,"fcmToken"])->middleware('auth
 Route::get("/me",[AuthController::class,"me"])->middleware('auth:sanctum');
 Route::get("/notifications",[AuthController::class,"notifications"])->middleware('auth:sanctum');;
 
-Route::get("/informasi",[APIGeneralController::class,"informasi"]);
-Route::get("/artikel",[APIGeneralController::class,"artikel"]);
-Route::get("/sampahunitprice",[APIGeneralController::class,"sampahunitprice"]);
-Route::get("/produkhasil",[APIGeneralController::class,"produkhasil"]);
+Route::get("/informasi",[APIGeneralController::class,"informasi"])->middleware('auth:sanctum');
+Route::get("/artikel",[APIGeneralController::class,"artikel"])->middleware('auth:sanctum');
+Route::get("/sampahunitprice",[APIGeneralController::class,"sampahunitprice"])->middleware('auth:sanctum');
+Route::get("/produkhasil",[APIGeneralController::class,"produkhasil"])->middleware('auth:sanctum');
 
+Route::get("/leaderboard",[APIGeneralController::class,"leaderboard"])->middleware('auth:sanctum');
+Route::get("/currentLeaderboard",[APIGeneralController::class,"currentLeaderboard"])->middleware('auth:sanctum');
 
 Route::post("/uploadImage",[SampahController::class,"storeImage"])->middleware('auth:sanctum');
 
