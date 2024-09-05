@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +24,7 @@ class Informasi extends Model
     protected function getPublicUrlAttribute(){
         return url(route("viewinformasipublic",["id"=>$this->attributes['id']]));
     }
-    
+
     protected $appends = ['imgPublicUrl', 'publicUrl'];
 
 }

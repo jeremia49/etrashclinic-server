@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sampah;
-use App\Models\SampahPengguna;
 use App\Models\SampahUnitPrice;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SampahController extends Controller
 {
-    
+
     public function sampah(){
         $sampahs = SampahUnitPrice::all();
 
@@ -19,13 +18,13 @@ class SampahController extends Controller
             "sampahs"=>$sampahs,
         ]);
     }
-    
+
     public function addsampah(){
         return view('sampah.add');
     }
 
     public function addsampahp(Request $request){
-        
+
         $validator = Validator::make($request->all(), [
             'nama'=>'required',
             'satuan'=>'required',
@@ -33,7 +32,7 @@ class SampahController extends Controller
             // 'coin'=>'required',
             'image'=>'required|file',
         ]);
- 
+
         if ($validator->fails()) {
             return redirect()->back();
         }
@@ -41,7 +40,7 @@ class SampahController extends Controller
         $validated = $validator->validated();
 
         $imgpath = $request->image->store('image', 'public');
-        
+
         $sampah = new SampahUnitPrice();
         $sampah->author = auth()->user()->id;
         $sampah->title = $validated['nama'];
@@ -54,7 +53,7 @@ class SampahController extends Controller
         $sampah->save();
         return redirect()->route('sampah');
     }
-    
+
     public function viewsampah(int $id){
         $sampah = SampahUnitPrice::findOrFail($id);
         return view('sampah.view',[
@@ -73,11 +72,11 @@ class SampahController extends Controller
     }
 
 
-    
+
     public function storeImage(Request $request){
         if ($request->hasFile('photo')) {
             try{
-                
+
                 $imgpath = $request->photo->store('image', 'public');
                 if(!$imgpath){
                     return response()->json([
@@ -86,7 +85,7 @@ class SampahController extends Controller
                         'reason' => null,
                     ],500);
                 }
-                
+
                 return response()->json([
                     'status' => 'ok',
                     'message'=> "Sukses",

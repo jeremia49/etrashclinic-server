@@ -6,12 +6,11 @@ use App\Events\SampahApproved;
 use App\Events\SampahDeclined;
 use App\Events\SampahPublished;
 use App\FCM\FCM as FCM_Notifications;
+use App\Jobs\ProcessFCMNotification;
 use App\Models\FCM as FCM_Models;
 use App\Models\Notification;
 use Exception;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Events\Dispatcher;
-use Illuminate\Queue\InteractsWithQueue;
 
 class SampahEventSubscriber
 {
@@ -28,12 +27,11 @@ class SampahEventSubscriber
         );
 
         $registeredTokens = FCM_Models::distinct()->select("fcmToken")->where('author', $event->sampahPengguna->author)->get();
-        $fcm = new FCM_Notifications();
         foreach ($registeredTokens as $token) {
-            try{
-                $fcm->postNotification($token->fcmToken, "Sampah Diupload", "Unggahan sampah anda telah berhasil. Silahkan menunggu admin memproses sampah anda!");
+            try {
+                ProcessFCMNotification::dispatch($token->fcmToken, "Sampah Diupload", "Unggahan sampah anda telah berhasil. Silahkan menunggu admin memproses sampah anda!");
+            } catch (Exception $e) {
             }
-            catch(Exception $e){}
         }
     }
 
@@ -50,12 +48,11 @@ class SampahEventSubscriber
         );
 
         $registeredTokens = FCM_Models::distinct()->select("fcmToken")->where('author', $event->sampahPengguna->author)->get();
-        $fcm = new FCM_Notifications();
         foreach ($registeredTokens as $token) {
-            try{
-                $fcm->postNotification($token->fcmToken, "Sampah Diterima", "Selamat, sampah anda telah diterima. Etrash Currency (EC) dan Koin anda telah bertambah",);
+            try {
+                ProcessFCMNotification::dispatch($token->fcmToken, "Sampah Diterima", "Selamat, sampah anda telah diterima. Etrash Currency (EC) dan Koin anda telah bertambah");
+            } catch (Exception $e) {
             }
-            catch(Exception $e){}
         }
     }
 
@@ -74,10 +71,10 @@ class SampahEventSubscriber
         $registeredTokens = FCM_Models::distinct()->select("fcmToken")->where('author', $event->sampahPengguna->author)->get();
         $fcm = new FCM_Notifications();
         foreach ($registeredTokens as $token) {
-            try{
-                $fcm->postNotification($token->fcmToken, "Sampah Ditolak", "Mohon maaf, sampah anda telah ditolak. Mohon cek kembali dan upload lagi sampah anda",);
+            try {
+                ProcessFCMNotification::dispatch($token->fcmToken, "Sampah Ditolak", "Mohon maaf, sampah anda telah ditolak. Mohon cek kembali dan upload lagi sampah anda");
+            } catch (Exception $e) {
             }
-            catch(Exception $e){}
         }
     }
 

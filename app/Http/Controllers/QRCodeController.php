@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\QRList;
 use App\Models\QRLog;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class QRCodeController extends Controller
-{    
+{
     public function qrcode(){
         $qrcodes = QRList::all();
 
@@ -18,18 +17,18 @@ class QRCodeController extends Controller
             "qrcodes"=>$qrcodes,
         ]);
     }
-    
+
     public function addqrcode(){
         return view('qrcode.add');
     }
 
     public function addqrcodep(Request $request){
-        
+
         $validator = Validator::make($request->all(), [
             'title'=>'required',
             'message'=>'required',
         ]);
- 
+
         if ($validator->fails()) {
             return redirect()->back();
         }
@@ -42,8 +41,8 @@ class QRCodeController extends Controller
         $qrcode->message = $validated['message'];
         $qrcode->uniqid = Str::orderedUuid();
         $qrcode->save();
-        
-        
+
+
         return redirect()->route('qrcode');
     }
     public function viewqrcode(int $id){
@@ -68,12 +67,12 @@ class QRCodeController extends Controller
     }
 
     public function editqrcodep(int $id, Request $request){
-        
+
         $validator = Validator::make($request->all(), [
             'title'=>'required',
             'message'=>'required',
         ]);
- 
+
         if ($validator->fails()) {
             return redirect()->back();
         }
@@ -84,7 +83,7 @@ class QRCodeController extends Controller
         $qrcode->title = $validated['title'];
         $qrcode->message = $validated['message'];
         $qrcode->save();
-        
+
         return redirect()->route('qrcode');
     }
 

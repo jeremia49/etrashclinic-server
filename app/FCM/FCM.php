@@ -10,7 +10,8 @@ class FCM
 {
     private $client;
 
-    public function __construct() {
+    public function __construct()
+    {
         $scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
 
         $middleware = ApplicationDefaultCredentials::getMiddleware($scopes);
@@ -22,7 +23,7 @@ class FCM
             'base_uri' => 'https://www.googleapis.com',
             'auth' => 'google_auth'
         ]);
-    
+
     }
 
     public function postNotification(string $target, string $title, string $body)
@@ -32,8 +33,8 @@ class FCM
                 env('FIREBASE_HOST_URL'),
                 [
                     'headers' => [
-                        'Accept'        => 'application/json',
-                        'Content-Type'  => 'application/json',
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
                     ],
                     'json' => [
                         'validate_only' => false,

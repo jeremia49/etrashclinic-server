@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\FCM;
 use App\Models\Notification;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -20,7 +19,7 @@ class AuthController extends Controller
             'password'=>'required',
             'fcmToken'=>'nullable',
         ]);
- 
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
@@ -30,16 +29,16 @@ class AuthController extends Controller
         }
 
         $validated = $validator->validated();
-        
+
         if (
             Auth::attempt([
             'email'=>$validated['email'],
             'password'=>$validated['password']
-            ])) {               
+            ])) {
                 // $request->user()->tokens()->delete();
 
                 $token = $request->user()->createToken("MOBILE_APP_KEY")->plainTextToken;
-                
+
                 return response()->json([
                     'status' => 'ok',
                     'message' => 'Anda telah berhasil masuk',
@@ -60,10 +59,10 @@ class AuthController extends Controller
                 "reason"=>null,
             ],401);
         }
- 
+
     }
 
-    
+
     public function register(Request $request)
     {
 
@@ -73,7 +72,7 @@ class AuthController extends Controller
             'nohp'=>'required|string',
             'password'=>'required|min:8|max:128',
         ]);
- 
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
@@ -83,7 +82,7 @@ class AuthController extends Controller
         }
 
         $validated = $validator->validated();
-         
+
         $user = new User();
         $user->name = $validated['name'];
         $user->email = $validated['email'];
@@ -154,7 +153,7 @@ class AuthController extends Controller
             'fcmToken'=>'required|string',
         ]);
         $validated = $validator->validated();
-         
+
         $fcm = new FCM();
         $fcm->author = $user->id;
         $fcm->fcmToken = $validated['fcmToken'];
@@ -166,5 +165,5 @@ class AuthController extends Controller
             "reason"=>null,
         ]);
     }
-    
+
 }
