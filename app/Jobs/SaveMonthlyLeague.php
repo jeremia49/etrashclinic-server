@@ -38,7 +38,6 @@ class SaveMonthlyLeague implements ShouldQueue
 
         $leagues = ['silver', 'gold', 'platinum', 'diamond', 'ascendant'];
         foreach ($leagues as $league) {
-            echo $league;
             $ranknumber = 1;
             $users = User::where('leagueBulanIni', $league)->orderBy('totalSampahBulanIni','desc')->get();
             foreach ($users as $user) {

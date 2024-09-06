@@ -14,16 +14,15 @@ use Illuminate\Support\Facades\Validator;
 
 class SampahPenggunaController extends Controller
 {
-    
+
     public function sampahpengguna(){
         // $sampahpenggunas = SampahPengguna::all();
 
-        $sampahpenggunas = SampahPengguna::select("table_sampah.*", "table_unitprice.title", "table_unitprice.rupiah")
+        $sampahpenggunas = SampahPengguna::select("table_sampah.*", "table_unitprice.title", "table_unitprice.rupiah", "table_unitprice.satuan")
         ->where("table_sampah.isApproved","0")
         ->where("table_sampah.isDeclined","0")
         ->join("table_unitprice","table_unitprice.id", "=", "table_sampah.unitid")
         ->get();
-        
         return view('sampahpengguna.index', [
             "sampahpenggunas"=>$sampahpenggunas,
         ]);
@@ -64,7 +63,7 @@ class SampahPenggunaController extends Controller
 
         return redirect()->back();
     }
-    
+
     public function declinesampahpengguna(int $id){
         $sampahpengguna = SampahPengguna::findOrFail($id);
         $sampahpengguna->isDeclined=true;
@@ -74,15 +73,15 @@ class SampahPenggunaController extends Controller
 
         return redirect()->back();
     }
-    
+
     public function addSampahPengguna(Request $request){ //api
-          
+
         $validator = Validator::make($request->all(), [
             '*.id'=>'required',
             '*.berat'=>'required',
             '*.image'=>'required',
         ]);
- 
+
         if ($validator->fails()) {
             return redirect()->back();
         }

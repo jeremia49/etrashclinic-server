@@ -63,9 +63,17 @@ class APIGeneralController extends Controller
         ]);
     }
 
-    public function leaderboard()
+    public function leaderboard(Request $request)
     {
-        $leaderboard = Leaderboard::select("table_leaderboards.*","users.name", "users.photoUrl")->join('users', 'users.id', '=', 'table_leaderboards.authorID' )->get();
+        $user = $request->user();
+        $league = "silver";
+        if($user->leagueBulanIni != ""){
+            $league = $user->leagueBulanIni;
+        }
+        $leaderboard = Leaderboard::select("table_leaderboards.*","users.name", "users.photoUrl")
+            ->join('users', 'users.id', '=', 'table_leaderboards.authorID' )
+            ->where('table_leaderboards.league', $league)
+            ->get();
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
