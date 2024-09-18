@@ -30,6 +30,7 @@ Route::post("/setFCMToken",[AuthController::class,"fcmToken"])->middleware('auth
 
 Route::get("/me",[AuthController::class,"me"])->middleware('auth:sanctum');
 Route::get("/notifications",[AuthController::class,"notifications"])->middleware('auth:sanctum');;
+Route::post("/updateProfile",[AuthController::class,"updateProfile"])->middleware('auth:sanctum');
 
 Route::get("/informasi",[APIGeneralController::class,"informasi"])->middleware('auth:sanctum');
 Route::get("/artikel",[APIGeneralController::class,"artikel"])->middleware('auth:sanctum');

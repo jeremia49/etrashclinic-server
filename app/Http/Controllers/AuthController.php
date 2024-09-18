@@ -15,51 +15,51 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'=>'required|email',
-            'password'=>'required',
-            'fcmToken'=>'nullable',
+            'email' => 'required|email',
+            'password' => 'required',
+            'fcmToken' => 'nullable',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message'=> "Validation Error!",
+                'message' => "Validation Error!",
                 'reason' => $validator->errors()->messages(),
-            ],400);
+            ], 400);
         }
 
         $validated = $validator->validated();
 
         if (
             Auth::attempt([
-            'email'=>$validated['email'],
-            'password'=>$validated['password']
-            ])) {
-                // $request->user()->tokens()->delete();
+                'email' => $validated['email'],
+                'password' => $validated['password']
+            ])
+        ) {
+            // $request->user()->tokens()->delete();
 
-                $token = $request->user()->createToken("MOBILE_APP_KEY")->plainTextToken;
+            $token = $request->user()->createToken("MOBILE_APP_KEY")->plainTextToken;
 
-                return response()->json([
-                    'status' => 'ok',
-                    'message' => 'Anda telah berhasil masuk',
-                    "reason"=>null,
-                    "data"=>array(
-                        "uid"=>$request->user()->id,
-                        "name"=>$request->user()->name,
-                        "email"=>$request->user()->email,
-                        "nohp"=>$request->user()->nohp,
-                        "photoUrl"=>$request->user()->photoUrl,
-                        "access_token"=>$token
-                    ),
-                ]);
-        }else{
+            return response()->json([
+                'status' => 'ok',
+                'message' => 'Anda telah berhasil masuk',
+                "reason" => null,
+                "data" => array(
+                    "uid" => $request->user()->id,
+                    "name" => $request->user()->name,
+                    "email" => $request->user()->email,
+                    "nohp" => $request->user()->nohp,
+                    "photoUrl" => $request->user()->photoUrl,
+                    "access_token" => $token
+                ),
+            ]);
+        } else {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Wrong email / password',
-                "reason"=>null,
-            ],401);
+                "reason" => null,
+            ], 401);
         }
-
     }
 
 
@@ -67,18 +67,18 @@ class AuthController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email',
-            'nohp'=>'required|string',
-            'password'=>'required|min:8|max:128',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'nohp' => 'required|string',
+            'password' => 'required|min:8|max:128',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message'=>"Validation Error!",
+                'message' => "Validation Error!",
                 'reason' => $validator->errors()->messages(),
-            ],400);
+            ], 400);
         }
 
         $validated = $validator->validated();
@@ -88,21 +88,21 @@ class AuthController extends Controller
         $user->email = $validated['email'];
         $user->password = $validated['password'];
         $user->nohp = $validated['nohp'];
-        $user->photoUrl = "https://gravatar.com/avatar/".md5($validated['email']);
+        $user->photoUrl = "https://gravatar.com/avatar/" . md5($validated['email']);
 
         $result = $user->save();
-        if($result){
+        if ($result) {
             return response()->json([
                 'status' => 'ok',
                 'message' => 'Anda telah berhasil mendaftar',
-                "reason"=>null,
+                "reason" => null,
             ]);
         } else {
             return response()->json([
                 'status' => 'error',
                 'message' => 'An error occured',
-                "reason"=>null,
-            ],500);
+                "reason" => null,
+            ], 500);
         }
     }
 
@@ -113,7 +113,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
-            "reason"=>null,
+            "reason" => null,
         ]);
     }
 
@@ -126,12 +126,13 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
-            "reason"=>null,
-            "data"=>$user,
+            "reason" => null,
+            "data" => $user,
         ]);
     }
 
-    public function notifications(Request $request){
+    public function notifications(Request $request)
+    {
         $user = $request->user();
         $data = Notification::where('author', $user->id)->orderBy('created_at', 'desc')->get();
 
@@ -140,17 +141,17 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
-            "reason"=>null,
-            "data"=>$data,
+            "reason" => null,
+            "data" => $data,
         ]);
-
     }
 
-    public function fcmToken(Request $request){
+    public function fcmToken(Request $request)
+    {
         $user = $request->user();
 
         $validator = Validator::make($request->all(), [
-            'fcmToken'=>'required|string',
+            'fcmToken' => 'required|string',
         ]);
         $validated = $validator->validated();
 
@@ -162,8 +163,58 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'ok',
             'message' => 'Sukses',
-            "reason"=>null,
+            "reason" => null,
         ]);
     }
 
+    public function updateProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'nullable|string',
+            'nohp' => 'nullable|string',
+            'password' => 'nullable|min:8|max:128',
+            'photoUrl' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Validation Error!",
+                'reason' => $validator->errors()->messages(),
+            ], 400);
+        }
+
+        $validated = $validator->validated();
+
+        $user = $request->user();
+
+        if (array_key_exists("name", $validated)) {
+            if(!is_null($validated["name"]) && $validated["name"] !== ""){
+                $user->name = $validated['name'];
+            }
+        }
+        if (array_key_exists("password", $validated)) {
+            if(!is_null($validated["password"]) && $validated["password"] !== ""){
+                $user->password = $validated['password'];
+            }
+        }
+        if (array_key_exists("nohp", $validated)) {
+            if(!is_null($validated["nohp"]) && $validated["nohp"] !== ""){
+                $user->nohp = $validated['nohp'];
+            }
+        }
+        if (array_key_exists("photoUrl", $validated)) {
+            if(!is_null($validated["photoUrl"]) && $validated["photoUrl"] !== ""){
+                $user->photoUrl = $validated['photoUrl'];
+            }
+        }
+
+        $user->save();
+
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Sukses',
+            "reason" => null,
+        ]);
+    }
 }
