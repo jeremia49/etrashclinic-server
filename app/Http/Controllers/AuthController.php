@@ -89,6 +89,7 @@ class AuthController extends Controller
         $user->password = $validated['password'];
         $user->nohp = $validated['nohp'];
         $user->photoUrl = "https://gravatar.com/avatar/" . md5($validated['email']);
+        $user->totalSampahBulanIni = '0';
 
         $result = $user->save();
         if ($result) {
