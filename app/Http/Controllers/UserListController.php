@@ -86,4 +86,28 @@ class UserListController extends Controller
         return redirect()->route('pengguna');
     }
 
+    public function resetpassword(int $id){
+        $user = User::findOrFail($id);
+
+        return view('users.resetpassword', [
+            "user"=>$user,
+        ]);
+    }
+
+    public function resetpasswordp(int $id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'newpassword' => 'required|min:8|max:128',
+        ]);
+
+        $validated = $validator->validated();
+        
+        $user = User::findOrFail($id);
+        
+        $user->password = $validated['newpassword'];
+
+        $user->save();
+        
+        return redirect()->route('pengguna');
+    }
+
 }

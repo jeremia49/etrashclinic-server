@@ -90,5 +90,8 @@ Route::middleware("auth")->group(function () {
     Route::get("/refundsaldo/{id}",[UserListController::class,"refundSaldo"])->name('refundsaldo');
     Route::post("/refundsaldo/{id}",[UserListController::class,"refundSaldop"])->name('refundsaldo.p');
 
+    Route::get("/resetpassword/{id}",[UserListController::class,"resetpassword"])->name('resetpassword');
+    Route::post("/resetpassword/{id}",[UserListController::class,"resetpasswordp"])->name('resetpassword.p');
+
     
 });

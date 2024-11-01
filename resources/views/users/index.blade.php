@@ -52,7 +52,16 @@ $TITLE="Daftar Pengguna";
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
+                                            <td>
+                                                {{$user->email}}
+                                                <br>
+                                                <a title="Reset Password" href="{{route('resetpassword',  ['id'=>$user->id])}}" class="btn btn-info">
+                                                    <span class="icon text-white-100">
+                                                        <i class="fas fa-edit"></i>
+                                                    </span>
+                                                    Reset Password
+                                                </a>
+                                            </td>
                                             <td>{{$user->nohp}}</td>
                                             <td>
                                                 {{$user->coinBalance}} 
